@@ -17,6 +17,41 @@ We have some data added to the local database. You can edit it as you want as it
 It is a simple backend server written in `Python` and using `Flask`(a lightweight Python web framework).
 
 ### How to run the app
-1. Navigate to the `backend` folder
+1. Navigate to the `backend` folder.
+
+2. There a few ways to install packages but let's use a Virtual Environment for this app (The most recommended way):
+    
+    A virtual environment allows us to install packages in an isolated environment without affecting the system-wide Python installation:
+
+    1. Create a virtual environment:
+
+        Make sure you have python3 installed on your machine before proceeding:
+
+    ```
+        python3 -m venv venv
+    ```
+
+    2. Activate the virtual environment:
+    
+        - On Linux or macOS:
+
+        ```
+            source venv/bin/activate
+        ```
+
+
+        - On Windows:
+
+        ```
+            venv\Scripts\activate
+        ```
+
+    3. Install Flask within the virtual environment:
+
+        ```
+            pip install flask
+        ```
+
+
 1. Run `python app.py`
 1. Start working on the frontend
