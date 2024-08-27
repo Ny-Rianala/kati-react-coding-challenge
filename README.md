@@ -52,6 +52,6 @@ It is a simple backend server written in `Python` and using `Flask`(a lightweigh
             pip install flask
         ```
 
+    4. Run `python app.py`
 
-1. Run `python app.py`
 1. Start working on the frontend
