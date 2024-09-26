@@ -1,4 +1,4 @@
-const productsDb = require("../init-db.js");
+const { productsDb } = require("../databases/init-db.js");
 
 const getAllProducts = (req, res) => {
     productsDb.all(`SELECT * FROM products`, [], (err, products) => {

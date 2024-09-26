@@ -1,15 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const sqlite = require('sqlite3').verbose();
-
-// Connect to SQLite database
-const usersDb = new sqlite.Database('./databases/users.db', (err) => {
-  if (err) {
-    console.error("Error connecting to the database", err);
-  } else {
-    console.log("Connected to SQLite database");
-  }
-});
+const { usersDb } = require('../databases/init-db');
 
 // Create users table if it doesn't exist
 usersDb.serialize(() => {

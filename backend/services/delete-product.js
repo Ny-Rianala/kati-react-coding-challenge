@@ -1,4 +1,4 @@
-const productsDb = require("../init-db");
+const { productsDb } = require("../databases/init-db");
 
 const deleteProduct = (req, res) => {
   const productId = req.params.id;

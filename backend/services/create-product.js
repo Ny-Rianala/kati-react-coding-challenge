@@ -1,4 +1,4 @@
-const productsDb = require('../init-db.js'); // Import shared connection
+const { productsDb } = require('../databases/init-db.js'); // Import shared connection
 
   // SQL to create products table
   const createProductsTable = `
@@ -19,19 +19,14 @@ const productsDb = require('../init-db.js'); // Import shared connection
     );
   `;
 
-//   // Connect to SQLite database
-// const productsDb = new sqlite3.Database('./databases/products.db', (err) => {
-//     if (err) {
-//       console.error("Error connecting to the database", err);
-//     } else {
-//       console.log("Connected to SQLite database");
-//     }
-//   });
-  
-  // Create users table if it doesn't exist
+     const sql = `
+     INSERT INTO products (
+       name, image_link, description, is_liked, available_stocks, price, is_negotiable,
+       owner_name, owner_email, owner_phone, owner_address, owner_availability
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+ 
+
   productsDb.serialize(() => productsDb.run(createProductsTable));
-// Export the function to create tables
-// module.exports = { createTables, productsDb };
 
 const createProduct = (req, res) => {
     const {
@@ -57,13 +52,6 @@ const createProduct = (req, res) => {
           console.log('Products table created or already exists.');
         }
     });
-  
-    // Prepare the SQL statement
-    const sql = `
-      INSERT INTO products (
-        name, image_link, description, is_liked, available_stocks, price, is_negotiable,
-        owner_name, owner_email, owner_phone, owner_address, owner_availability
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   
     // Execute the SQL statement
     productsDb.run(sql, [
