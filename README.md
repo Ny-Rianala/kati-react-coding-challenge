@@ -24,3 +24,6 @@ The backend code is written in Node.js and Express.js.
 1. Install all necessary packages by running `npm install`
 1. Run `npm start`
 1. Start working on the frontend
+
+## Notes:
+You may need to fix some issues or make some tweaks to the backend for some functionality to work perfectly. For the most part, what's done there should be enough to complete the frontend work.
