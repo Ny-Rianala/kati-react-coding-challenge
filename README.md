@@ -25,5 +25,91 @@ The backend code is written in Node.js and Express.js.
 1. Run `npm start`
 1. Start working on the frontend
 
+### API Endpoints Usage Instructions
+
+#### Base URL:
+The base URL for the API is `http://localhost:3000` in development environmemt.
+
+1. User Rrgistration: `/api/sign-up`
+
+**Example:**
+
+```
+curl -X POST http://localhost:3000/api/signup -H "Content-Type: application/json" -d '{
+  "name": "John Smith",
+  "email": "john.smith@example.com",
+  "password": "john1234"
+}'
+
+```
+
+1. User login: `/api/log-in`
+
+**Example:**
+
+```
+curl -X POST http://localhost:3000/api/login -H "Content-Type: application/json" -d '{
+  "email": "john.smith@example.com",
+  "password": "john1234"
+}'
+
+```
+1. Get products: `/api/products`
+
+**Example:**
+
+
+```
+curl -X GET http://localhost:3000/api/products
+
+```
+
+1. Create a product: `/api/products`
+
+**Example:**
+
+```
+curl -X POST http://localhost:3000/api/products -H "Content-Type: application/json" -d '{
+  "name": "Sample Product",
+  "image_link": "http://example.com/image.jpg",
+  "description": "This is a sample product.",
+  "is_liked": false,
+  "available_stocks": 10,
+  "price": 19.99,
+  "is_negotiable": true,
+  "owner": {
+    "name": "Rinon",
+    "email": "rinon.tene@example.com",
+    "phone_number": "1234567890",
+    "address": "123 Main St",
+    "availability": "9 AM - 5 PM"
+  }
+}'
+```
+
+1. Edit a single product: `/api/products/:id`
+
+You can edit one or more properties at the same time.
+
+**Example:**
+
+```
+curl -X PUT http://localhost:3000/api/products/1 -H "Content-Type: application/json" -d '{
+  "is_liked": true,
+  "available_stocks": 9
+}'
+```
+
+1. Delete a single product: `/api/products/:id`
+
+**Example:**
+
+```
+curl -X DELETE http://localhost:3000/api/products/1
+
+```
+
+1. Send an email: `/api/send-email`
+
 ## Notes:
 You may need to fix some issues or make some tweaks to the backend for some functionality to work perfectly. For the most part, what's done there should be enough to complete the frontend work.
