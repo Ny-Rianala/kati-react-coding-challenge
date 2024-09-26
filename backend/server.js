@@ -7,6 +7,7 @@ const createProduct = require('./services/create-product.js');
 const updateProduct = require('./services/update-product.js');
 const getAllProducts = require('./services/get-products.js');
 const deleteProduct = require('./services/delete-product.js');
+const sendEmail = require('./services/send-email.js');
 
 const app = express();
 const PORT = 3000;
@@ -20,6 +21,7 @@ app.post('/api/products', createProduct);
 app.put('/api/products/:id', updateProduct);
 app.get('/api/products', getAllProducts);
 app.delete('/api/products/:id', deleteProduct);
+app.post('/api/send-email', sendEmail)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
