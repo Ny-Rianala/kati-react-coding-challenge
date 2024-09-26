@@ -120,7 +120,7 @@ curl -X POST http://localhost:4000/api/send-email -H "Content-Type: application/
   "content": "Hello, I am interested in your product!"
 }'
 ```
-`content:` should accept a react component so that you can send the product's details and the user info along.
+`content:` should accept a react/html component so that you can send the product's details and the user info along.
 
 ## Notes:
 - For now, endpoints are publicly exposed so doesn't require the user token. This will be added in the future or you can add it as a bonus.
