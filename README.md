@@ -1,4 +1,4 @@
-# coding-challenge
+# Onja Developers Coding challenge
 Here is a coding challenge to test a junior developer's skills and see if they are able to tackle challenges that an intermediate dev can handle.
 
 ## Instructions:
