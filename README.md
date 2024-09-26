@@ -10,48 +10,17 @@ Head to the instructions [here](https://docs.google.com/document/d/1Pstqo1wXu0v-
 Your frontend code should be written in a folder called `frontend`. Please add a clear instruction on how to run your code.
 
 ## Backend
-This is a simple backend app to perform CRUD operations on products data.
-We have some data added to the local database. You can edit it as you want as it is yours. You just make sure that you leave data there for us to test your app.
+
+Navigate to the `backend` folder.
+This is a straightforward backend application designed for user registration, CRUD operations on product data, and email services using [Resend](https://resend.com). We have pre-populated some data in the local SQLite databases, which you can see in the `databases` folder and you are welcome to modify it as needed. .
+However, please ensure that you leave enough data for us to test your application effectively.
 
 ### Technologies.
-It is a simple backend server written in `Python` and using `Flask`(a lightweight Python web framework).
+The backend code is written in Node.js and Express.js.
 
 ### How to run the app
 1. Navigate to the `backend` folder.
-
-2. There a few ways to install packages but let's use a Virtual Environment for this app (The most recommended way):
-    
-    A virtual environment allows us to install packages in an isolated environment without affecting the system-wide Python installation:
-
-    1. Create a virtual environment:
-
-        Make sure you have python3 installed on your machine before proceeding:
-
-    ```
-        python3 -m venv venv
-    ```
-
-    2. Activate the virtual environment:
-    
-        - On Linux or macOS:
-
-        ```
-            source venv/bin/activate
-        ```
-
-
-        - On Windows:
-
-        ```
-            venv\Scripts\activate
-        ```
-
-    3. Install Flask within the virtual environment:
-
-        ```
-            pip install flask
-        ```
-
-    4. Run `python app.py`
-
+1. Contact us for the .env file content
+1. Install all necessary packages by running `npm install`
+1. Run `npm start`
 1. Start working on the frontend
