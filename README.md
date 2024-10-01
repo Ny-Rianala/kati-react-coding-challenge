@@ -60,7 +60,8 @@ curl -X POST http://localhost:4000/api/login -H "Content-Type: application/json"
 
 
 ```
-curl -X GET http://localhost:4000/api/products
+curl -X GET http://localhost:4000/api/products \
+-H "Authorization: Bearer <your login token>"
 
 ```
 
@@ -69,7 +70,9 @@ curl -X GET http://localhost:4000/api/products
 **Example:**
 
 ```
-curl -X POST http://localhost:4000/api/products -H "Content-Type: application/json" -d '{
+curl -X POST http://localhost:4000/api/products  \
+-H "Authorization: Bearer <your login token>" \
+-H "Content-Type: application/json" -d '{
   "name": "Sample Product",
   "image_link": "http://example.com/image.jpg",
   "description": "This is a sample product.",
@@ -94,7 +97,9 @@ You can edit one or more properties at the same time.
 **Example:**
 
 ```
-curl -X PUT http://localhost:4000/api/products/1 -H "Content-Type: application/json" -d '{
+curl -X PUT http://localhost:4000/api/products/1 \
+-H "Authorization: Bearer <your token>" \
+-H "Content-Type: application/json" -d '{
   "is_liked": true,
   "available_stocks": 9
 }'
@@ -105,14 +110,17 @@ curl -X PUT http://localhost:4000/api/products/1 -H "Content-Type: application/j
 **Example:**
 
 ```
-curl -X DELETE http://localhost:4000/api/products/1
+curl -X DELETE http://localhost:4000/api/products/1 \
+-H "Authorization: Bearer <your login token>" \
 
 ```
 
 1. Send an email: `/api/send-email`
 
 ```
-curl -X POST http://localhost:4000/api/send-email -H "Content-Type: application/json" -d '{
+curl -X POST http://localhost:4000/api/send-email \
+-H "Authorization: Bearer <your token>" \
+-H "Content-Type: application/json" -d '{
   "name": "John Doe",
   "product_owner_email": "owner@example.com",
   "user_email": "user@example.com",
@@ -123,6 +131,5 @@ curl -X POST http://localhost:4000/api/send-email -H "Content-Type: application/
 `content:` should accept a react/html component so that you can send the product's details and the user info along.
 
 ## Notes:
-- For now, endpoints are publicly exposed so doesn't require the user token. This will be added in the future or you can add it as a bonus.
-
+- You won't be able to interact with the products endpoints without your login credentials. You can gain this by using signing up and logging in using the CURLS above or implement the user registration functionality first.s
 - You may need to fix some issues or make some tweaks to the backend for some functionality to work perfectly. For the most part, what's done there should be enough to complete the frontend work.
