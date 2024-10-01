@@ -19,9 +19,8 @@ SET
 WHERE id = ?`;
 
 const updateProduct = (req, res) => {
-    const { id } = req.params; // Get the product ID from the request parameters
-    
-    // Prepare to select the current product details
+    const { id } = req.params;
+
     productsDb.get(`SELECT * FROM products WHERE id = ?`, [id], (err, product) => {
         if (err) {
             return res.status(500).json({ message: 'Error retrieving product', error: err.message });
@@ -30,7 +29,6 @@ const updateProduct = (req, res) => {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // Destructure the request body
         const { 
             name, 
             image_link, 
@@ -43,17 +41,15 @@ const updateProduct = (req, res) => {
             likers 
         } = req.body;
 
-        // Prepare the likers field
-        let updatedLikers = product.likers; // Start with the existing likers
+        let updatedLikers = product.likers;
         if (likers) {
-            updatedLikers = JSON.parse(updatedLikers); // Parse existing likers
-            updatedLikers = Array.isArray(likers) ? likers : updatedLikers; // Update with new array or keep existing
-            updatedLikers = JSON.stringify(updatedLikers); // Convert back to JSON string for the database
+            updatedLikers = JSON.parse(updatedLikers);
+            updatedLikers = Array.isArray(likers) ? likers : updatedLikers;
+            updatedLikers = JSON.stringify(updatedLikers);
         } else {
-            updatedLikers = JSON.stringify(updatedLikers); // Keep existing likers if not updating
+            updatedLikers = JSON.stringify(updatedLikers);
         }
 
-        // Execute the SQL statement
         productsDb.run(sql, [
             name || null,
             image_link || null,
@@ -67,14 +63,13 @@ const updateProduct = (req, res) => {
             owner ? owner.phone_number : null,
             owner ? owner.address : null,
             owner ? owner.availability : null,
-            updatedLikers, // Use the prepared likers
+            updatedLikers,
             id
         ], function (err) {
             if (err) {
                 return res.status(500).json({ message: 'Error updating product', error: err.message });
             }
             
-            // Return the updated product information
             const updatedProduct = {
                 id,
                 name: name || product.name,
@@ -91,7 +86,7 @@ const updateProduct = (req, res) => {
                     address: owner ? owner.address : product.owner_address,
                     availability: owner ? owner.availability : product.owner_availability
                 },
-                likers: JSON.parse(updatedLikers) // Return the updated likers array
+                likers: JSON.parse(updatedLikers)
             };
             
             return res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });

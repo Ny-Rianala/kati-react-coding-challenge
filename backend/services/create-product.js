@@ -53,7 +53,6 @@ const createProduct = (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  // Execute the SQL statement
   productsDb.run(sql, [
     name,
     image_link,
@@ -67,13 +66,12 @@ const createProduct = (req, res) => {
     owner.phone_number,
     owner.address,
     owner.availability,
-    JSON.stringify([])  // Initialize likers as an empty JSON array
+    JSON.stringify([])
   ], function (err) {
     if (err) {
       return res.status(500).json({ message: 'Error creating product', error: err.message });
     }
 
-    // Return the newly created product
     const createdProduct = {
       id: this.lastID,
       name,
