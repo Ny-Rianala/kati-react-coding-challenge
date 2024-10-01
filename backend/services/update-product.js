@@ -14,11 +14,13 @@ SET
   owner_email = COALESCE(?, owner_email),
   owner_phone = COALESCE(?, owner_phone),
   owner_address = COALESCE(?, owner_address),
-  owner_availability = COALESCE(?, owner_availability)
+  owner_availability = COALESCE(?, owner_availability),
+  likers = COALESCE(?, likers)  -- Add likers to the update statement
 WHERE id = ?`;
 
 const updateProduct = (req, res) => {
     const { id } = req.params; // Get the product ID from the request parameters
+    
     // Prepare to select the current product details
     productsDb.get(`SELECT * FROM products WHERE id = ?`, [id], (err, product) => {
         if (err) {
@@ -27,12 +29,32 @@ const updateProduct = (req, res) => {
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
+
         // Destructure the request body
-        const { name, image_link, description, is_liked, available_stocks, price, is_negotiable, owner } = req.body;
-        // Prepare the SQL update statement, updating only provided fields
-      
+        const { 
+            name, 
+            image_link, 
+            description, 
+            is_liked, 
+            available_stocks, 
+            price, 
+            is_negotiable, 
+            owner, 
+            likers 
+        } = req.body;
+
+        // Prepare the likers field
+        let updatedLikers = product.likers; // Start with the existing likers
+        if (likers) {
+            updatedLikers = JSON.parse(updatedLikers); // Parse existing likers
+            updatedLikers = Array.isArray(likers) ? likers : updatedLikers; // Update with new array or keep existing
+            updatedLikers = JSON.stringify(updatedLikers); // Convert back to JSON string for the database
+        } else {
+            updatedLikers = JSON.stringify(updatedLikers); // Keep existing likers if not updating
+        }
+
         // Execute the SQL statement
-        init_db_1.productsDb.run(sql, [
+        productsDb.run(sql, [
             name || null,
             image_link || null,
             description || null,
@@ -45,11 +67,13 @@ const updateProduct = (req, res) => {
             owner ? owner.phone_number : null,
             owner ? owner.address : null,
             owner ? owner.availability : null,
+            updatedLikers, // Use the prepared likers
             id
         ], function (err) {
             if (err) {
                 return res.status(500).json({ message: 'Error updating product', error: err.message });
             }
+            
             // Return the updated product information
             const updatedProduct = {
                 id,
@@ -66,10 +90,13 @@ const updateProduct = (req, res) => {
                     phone_number: owner ? owner.phone_number : product.owner_phone,
                     address: owner ? owner.address : product.owner_address,
                     availability: owner ? owner.availability : product.owner_availability
-                }
+                },
+                likers: JSON.parse(updatedLikers) // Return the updated likers array
             };
+            
             return res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
         });
     });
 };
+
 module.exports = updateProduct;
