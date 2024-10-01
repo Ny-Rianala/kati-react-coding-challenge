@@ -31,9 +31,8 @@ productsDb.serialize(() => {
   productsDb.run(createProductsTable, (err) => {
     if (err) {
       console.error('Error creating products table: ' + err.message);
-    } else {
-      console.log('Products table created or already exists.');
-    }
+    } 
+    return null;
   });
 });
 
@@ -48,6 +47,10 @@ const createProduct = (req, res) => {
     is_negotiable,
     owner
   } = req.body;
+
+  if (!req.user) {
+    return res.status(403).json({ message: 'Not authenticated.' });
+  }
 
   if (!name || !image_link || !available_stocks || !price || !owner) {
     return res.status(400).json({ message: 'All fields are required' });

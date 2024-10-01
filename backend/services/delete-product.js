@@ -1,6 +1,9 @@
 const { productsDb } = require("../databases/init-db");
 
 const deleteProduct = (req, res) => {
+  if (!req.user) {
+    return res.status(403).json({ message: 'Not authenticated.' });
+  }
   const productId = req.params.id;
 
   const query = 'DELETE FROM products WHERE id = ?';

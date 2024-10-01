@@ -8,6 +8,7 @@ const updateProduct = require('./services/update-product.js');
 const getAllProducts = require('./services/get-products.js');
 const deleteProduct = require('./services/delete-product.js');
 const sendEmail = require('./services/send-email.js');
+const authenticateToken = require('./middleware/authenticateToken.js');
 
 const app = express();
 const PORT = 4000;
@@ -17,11 +18,11 @@ app.use(bodyParser.json());
 // Routes
 app.post('/api/signup', signUp);
 app.post('/api/login', logIn);
-app.post('/api/products', createProduct);
-app.put('/api/products/:id', updateProduct);
-app.get('/api/products', getAllProducts);
-app.delete('/api/products/:id', deleteProduct);
-app.post('/api/send-email', sendEmail)
+app.post('/api/products', authenticateToken, createProduct);
+app.put('/api/products/:id', authenticateToken, updateProduct);
+app.get('/api/products', authenticateToken, getAllProducts);
+app.delete('/api/products/:id', authenticateToken, deleteProduct);
+app.post('/api/send-email', authenticateToken, sendEmail)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

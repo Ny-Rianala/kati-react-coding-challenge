@@ -19,6 +19,9 @@ SET
 WHERE id = ?`;
 
 const updateProduct = (req, res) => {
+    if (!req.user) {
+        return res.status(403).json({ message: 'Not authenticated.' });
+    }
     const { id } = req.params;
 
     productsDb.get(`SELECT * FROM products WHERE id = ?`, [id], (err, product) => {

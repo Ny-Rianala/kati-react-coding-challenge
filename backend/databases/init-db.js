@@ -14,4 +14,4 @@ const connectToDatabase = (dbName) => {
 const usersDb = connectToDatabase('users.db');
 const productsDb = connectToDatabase('products.db');
 
-module.exports = { productsDb, usersDb };
+module.exports = { usersDb, productsDb };

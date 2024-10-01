@@ -2,6 +2,9 @@ const { Resend } = require('resend');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (req, res) => {
+  if (!req.user) {
+    return res.status(403).json({ message: 'Not authenticated.' });
+  }
   const { name, product_owner_email, user_email, subject, content } = req.body;
   try {
     const payload = {
