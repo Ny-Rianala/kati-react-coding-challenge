@@ -13,12 +13,10 @@ const Header = ({ isAuthenticated, onLogin, onLogout }) => {
       <nav className="navigation">
         <Link className="products-link" to="/products">Products</Link>
         <Link className="contact-link" to="/contact">Contact</Link>
-        <button onClick={toggleModal}>Add Your Product</button>
-            {isAuthenticated ? (
-            <button onClick={onLogout}>Log Out</button>
-            ) : (
-            <button onClick={onLogin}>Log In</button>
-            )}
+        <button onClick={onLogin}>
+          {isAuthenticated ? 'Log Out' : 'Log In'}
+        </button>
+        <button>Add Your Product</button>
       </nav>
       {showModal && <div className="modal"> {/* Modal content here */} </div>}
     </header>
