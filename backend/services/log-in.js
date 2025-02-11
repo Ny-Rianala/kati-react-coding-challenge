@@ -1,3 +1,7 @@
+const { usersDb } = require('../databases/init-db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'; // Ensure JWT_SECRET is defined
 
 const logIn = async (req, res) => {
     const { email, password } = req.body;
@@ -6,7 +10,7 @@ const logIn = async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required' });
     }
   
-    usersDb.get(`SELECT * FROM users WHERE email = ?`, [email], (err, row) => {
+    usersDb.get(`SELECT * FROM users WHERE email = ?`, [email], (err, row) => {    
       if (err) {
         return res.status(500).json({ message: 'Database error', error: err.message });
       }
@@ -41,6 +45,6 @@ const logIn = async (req, res) => {
         });
       });
     });
-  };
+};
   
-  module.exports = logIn;
+module.exports = logIn;
