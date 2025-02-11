@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
+import GetAllProducts from "./components/GetAllProducts";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,6 +34,10 @@ const App = () => {
 
       {showLogin && <LogIn onLoginSuccess={handleLoginSuccess} onClose={() => setShowLogin(false)} switchToSignup={() => { setShowLogin(false); setShowSignup(true); }} />}
       {showSignup && <SignUp onSignupSuccess={handleSignupSuccess} onClose={() => setShowSignup(false)} switchToLogin={() => { setShowSignup(false); setShowLogin(true); }} />}
+      
+      <Routes>
+        <Route path="/products" element={<GetAllProducts />} />
+      </Routes>
     </div>
   );
 };
